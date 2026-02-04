@@ -220,20 +220,38 @@
       // Challenge 4: add my hosted airports FeatureLayer using its REST URL
       // =========================================================
 
-      // airport icon hosted in repo root
-      const airportRenderer = {
-       type: "simple",
-       symbol: {
-       type: "picture-marker",
-       url: "airport.png",
-       width: "18px",
-       height: "18px"
-        }
-      };
+      // airport icon
+const airportRenderer = {
+  type: "simple",
+  symbol: {
+    type: "picture-marker",
+    url: "airport.png",
+    width: "18px",
+    height: "18px"
+  }
+};
 
-      const airportPopup = {
-       title: "{Fac_Name}",
-       content: `
+// airport labels
+const airportLabels = {
+  symbol: {
+    type: "text",
+    color: "#FFFFFF",
+    haloColor: "#000000",
+    haloSize: "2px",
+    font: {
+      size: "11px",
+      family: "Noto Sans",
+      weight: "bold"
+    }
+  },
+  labelPlacement: "above-center",
+  labelExpressionInfo: { expression: "$feature.Fac_Name" }
+};
+
+// popup info
+const airportPopup = {
+  title: "{Fac_Name}",
+  content: `
     <b>Type:</b> {Fac_Type}<br>
     <b>City:</b> {City}<br>
     <b>State:</b> {State}
@@ -241,24 +259,14 @@
 };
 
 const airportLayer = new FeatureLayer({
-  // hosted airports layer from AGOL
   url: "PASTE_YOUR_AIRPORTS_REST_URL_HERE/0",
+  renderer: airportRenderer,
+  outFields: ["Fac_Name", "Fac_Type", "City", "State"],
+  labelingInfo: [airportLabels],
+  popupTemplate: airportPopup
+});
 
-       // airport symbol
-       renderer: airportRenderer,
-
-       // show only airports
-       definitionExpression: "Fac_Type = 'AIRPORT'",
-
-       // fields used in the popup
-       outFields: ["Fac_Name", "Fac_Type", "City", "State"],
-
-       // popup setup
-       popupTemplate: airportPopup
-      });
-
-      map.add(airportLayer);
-
+map.add(airportLayer);    
 
       // =========================================================
       // Lab 2 Part 6: Styling + filtering (airports already filtered above)
