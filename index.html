@@ -193,13 +193,18 @@
       // Using field names that actually exist in this dataset:
       // INSTNM = school name, STABBR = state, WEBADDR = website
       const universityPopup = {
-        title: "{INSTNM}",
-        content: `
-          <b>City:</b> {CITY}, {STABBR}<br>
-          <b>Total Enrollment:</b> {TOT_ENROLL}<br><br>
-          <a href="{WEBADDR}" target="_blank">School website</a>
-        `
+  title: "{INSTNM}",
+  content: `
+    <b>City:</b> {CITY}, {STABBR}<br>
+    <b>Address:</b> {ADDR}, {ZIP}<br>
+    <b>Phone:</b> {GENTELE}<br>
+    <b>Institution Type:</b> {SECTOR}<br>
+    <b>Level:</b> {ICLEVEL}<br><br>
+
+    <a href="{WEBADDR}">School website</a>
+  `
       };
+
 
       const universitiesLayer = new FeatureLayer({
         url: "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgis/rest/services/Colleges_and_Universities_View/FeatureServer",
